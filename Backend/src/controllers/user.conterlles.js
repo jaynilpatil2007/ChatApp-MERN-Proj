@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import User from "../models/user.models.js";
+import { sendWelcomeEmail } from "../email/emailHandler.js"
 
 const generateAccessRefreshToken = async (userId) => {
     try {
@@ -46,6 +47,13 @@ const signup = asyncHandler(async (req, res) => {
     //check for user creation:
     const createdUser = await User.findById(user._id).select("-password -refreshToken");
     if (!createdUser) throw new ApiError(500, "Something went wrong while registering user");
+
+    //sending email:
+    try {
+        await sendWelcomeEmail(user.email, user.fullname, process.env.CLIENT_URL);
+    } catch (error) {
+        console.log("Failed to welcome email:", error);
+    }
 
     //return res
     return res
