@@ -16,6 +16,12 @@ app.use((req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
 })
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
-})
+connectDB()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server is running on port: ${PORT}`);
+        })
+    })
+    .catch((err) => {
+        console.log("Mongo DB connection failed: ", err);
+    })
