@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { signup, login, logout, updatedProfile } from "../controllers/user.conterlles.js";
 import { verifyJWT } from "../middleware/auth.middleware.js";
-import { upload } from "../middleware/multer.middlerware.js";
+import { arjetProtected } from "../middleware/arcjet.middlerware.js";
 
 const router = Router();
+
+router.use(arjetProtected);
 
 router.route("/signup").post(signup);
 
