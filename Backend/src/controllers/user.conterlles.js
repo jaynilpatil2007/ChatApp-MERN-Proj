@@ -2,7 +2,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
-import { sendWelcomeEmail } from "../email/emailHandler.js"
+import { sendWelcomeEmail } from "../email/emailHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import "dotenv/config"
 
 const generateAccessRefreshToken = async (userId) => {
@@ -103,7 +104,6 @@ const login = asyncHandler(async (req, res) => {
 
 const logout = asyncHandler(async (req, res) => {
     //find user
-    console.log(req.user);
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -129,4 +129,30 @@ const logout = asyncHandler(async (req, res) => {
         )
 })
 
-export { signup, login, logout }
+const updatedProfile = asyncHandler(async (req, res) => {
+    const { profilePic } = req.body;
+    if (!profilePic) throw new ApiError(400, "Profile Pic is required");
+
+    const uploadResponse = await uploadOnCloudinary(profilePic);
+
+    const user = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: {
+                profilePic: uploadResponse.url
+            }
+        },
+        {
+            new: true
+        }
+    ).select("-password")
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(200, "Profile pic updated successfully")
+        )
+
+})
+
+export { signup, login, logout, updatedProfile }
