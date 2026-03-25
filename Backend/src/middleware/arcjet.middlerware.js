@@ -1,7 +1,7 @@
-import aj from "../utils/arcjet";
+import aj from "../utils/arcjet.js";
 import { isSpoofedBot } from "@arcjet/inspect";
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiError } from "../utils/ApiError";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/ApiError.js";
 
 export const arjetProtected = asyncHandler(async (req, res, next) => {
     try {

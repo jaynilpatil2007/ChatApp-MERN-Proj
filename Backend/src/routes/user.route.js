@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { signup, login, logout, updatedProfile } from "../controllers/user.conterlles.js";
+import { signup, login, logout, updatedProfile } from "../controllers/user.controllers.js";
 import { verifyJWT } from "../middleware/auth.middleware.js";
 import { arjetProtected } from "../middleware/arcjet.middlerware.js";
 
