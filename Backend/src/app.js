@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
 
@@ -19,5 +19,12 @@ import messageRoute from "./routes/message.route.js";
 
 app.use("/api/auth", authRoute);
 app.use("/api/messages", messageRoute);
+
+app.use((err, req, res, next) => {
+    res.status(err.statuscode || 500).json({
+        success: false,
+        message: err.message || "Internal Server Error"
+    });
+});
 
 export { app };
