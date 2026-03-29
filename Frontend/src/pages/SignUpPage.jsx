@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore.js'
-import { LoaderIcon } from 'lucide-react';
+import { LoaderIcon, MessageCircleIcon } from 'lucide-react';
 import { Link } from 'react-router';
 
 function SignUpPage() {
@@ -14,10 +14,10 @@ function SignUpPage() {
   }
   return (
     <div className="bg-[#FBE8CE] flex items-center justify-center min-h-screen">
-      <div className='flex bg-[#FFF8F0] rounded-2xl w-[900px] h-[600px] overflow-hidden outline-2 outline-[#545454]/50'>
-        <div className='w-1/2 my-6 ml-6 relative bg-[#F2EAE0] rounded-2xl'>
+      <div className='flex bg-[#FFF8F0] rounded-2xl w-225 md:h-150 h-200 overflow-hidden outline-2 outline-[#545454]/50'>
+        <div className='md:w-1/2 my-6 ml-6 relative bg-[#F2EAE0] rounded-2xl'>
           <div className="absolute size-40 rounded-full bg-[#44A194] top-0 left-0"></div>
-          <img src="/images/illustration.jpg" alt="illustration" className="relative z-10 w-[330px] h-[330px] ml-[60px] mt-[111px] rounded-xl"/>
+          <img src="/images/illustration.jpg" alt="illustration" className="relative z-10 w-82.5 h-82.5 ml-15 mt-27.75 rounded-xl"/>
           <div className="absolute size-40 rounded-full bg-[#44A194] bottom-0 right-0"></div>
         </div>
 
@@ -83,6 +83,26 @@ function SignUpPage() {
         </div>
       </div>
     </div>
+
+    // <div className='flex items-center justify-center min-h-screen'>
+    //   <div className='w-full flex items-center justify-center p-4'>
+    //     <BorderAnimatedContainer>
+    //       <div className='relative w-full max-w-6xl md:h-[800px] h-[650px]'>
+    //         <div className='w-full flex flex-col md:flex-row'>
+    //           {/* Right side */}
+    //           <div className='md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30'>
+    //             <div className='w-full max-w-md'>
+    //               <div className='text-center mb-8'>
+    //                 <MessageCircleIcon className='w-12 h-12 mx-auto text-slate-400 mb-4'/>
+    //                 <h2 className='text-2xl font-bold text-slate-200 mb-2'>Create account</h2>
+    //               </div>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </BorderAnimatedContainer>
+    //   </div>
+    // </div>
   )
 }
 
