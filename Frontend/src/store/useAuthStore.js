@@ -38,6 +38,7 @@ export const useAuthStore = create((set) => ({
         set({ isLoggedInCheck: true })
         try {
             const res = await axiosInstance.post("/auth/login", data);
+            console.log(res.data);
             set({ authUser: res.data });
 
             toast.success("Login successfully");

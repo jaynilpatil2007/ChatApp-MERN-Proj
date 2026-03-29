@@ -1,10 +1,10 @@
 import { useChatStore } from "../store/useChatStore.js"
-import { ContactList } from "../components/ContactList.jsx";
-import { ChatList } from "../components/ChatList.jsx";
-import { ActiveTab } from "../components/ActiveTab.jsx";
-import { ProfileHeader } from "../components/ProfileHeader.jsx";
-import { ChatContainer } from "../components/ChatContainer.jsx";
-import { NoConversationPlaceholder } from "../components/NoConversationPlaceholder.jsx";
+import ContactList from "../components/ContactList.jsx";
+import ChatList from "../components/ChatList.jsx";
+import ActiveTab from "../components/ActiveTab.jsx";
+import ProfileHeader from "../components/ProfileHeader.jsx";
+import ChatContainer from "../components/ChatContainer.jsx";
+import NoConversationPlaceholder from "../components/NoConversationPlaceholder.jsx";
 
 
 function ChatPage() {
