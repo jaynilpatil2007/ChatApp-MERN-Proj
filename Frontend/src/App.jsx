@@ -14,8 +14,6 @@ function App() {
     check()
   }, [check])
 
-  console.log({authUser});
-
   if(isCheckAuth) return <PageLoader />;
   return (
     <>

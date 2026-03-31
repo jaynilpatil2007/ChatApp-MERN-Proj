@@ -49,6 +49,9 @@ const signup = asyncHandler(async (req, res) => {
         password
     });
 
+    //accessToken and refreshToken
+    const { accessToken, refreshToken } = await generateAccessRefreshToken(user._id);
+
     //check for user creation:
     const createdUser = await User.findById(user._id).select("-password -refreshToken");
     if (!createdUser) throw new ApiError(500, "Something went wrong while registering user");
@@ -60,9 +63,18 @@ const signup = asyncHandler(async (req, res) => {
         console.log("Failed to welcome email:", error);
     }
 
+    //send cookies:
+    const options = {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    }
+
     //return res
     return res
         .status(201)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json(
             new ApiResponse(200, createdUser, "User register successfully")
         )
