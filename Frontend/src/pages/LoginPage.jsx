@@ -13,7 +13,7 @@ function LoginPage() {
   }
   return (
     <div className="bg-[#FBE8CE] flex items-center justify-center min-h-screen">
-      <div className='flex bg-[#FFF8F0] rounded-2xl w-[900px] h-[600px] overflow-hidden outline-2 outline-[#545454]/50'>
+      <div className='flex bg-[#FFF8F0] rounded-2xl w-225 h-150 overflow-hidden outline-2 outline-[#545454]/50'>
         <div className='w-1/2 font-[Dongle]'>
               <h2 className="text-2xl font-bold text-[#000000] ml-38 mt-15">Welcome Back</h2>
               <p className='text-[#7E7E7E] ml-34 mt-2'>Login to access your account</p>
@@ -61,7 +61,7 @@ function LoginPage() {
         </div>
         <div className='w-1/2 my-6 mr-6 relative bg-[#F2EAE0] rounded-2xl'>
           <div className="absolute size-40 rounded-full bg-[#44A194] top-0 left-0"></div>
-          <img src="/images/Programmer.jpg" alt="illustration" className="relative z-10 w-[330px] h-[330px] ml-[60px] mt-[111px] rounded-xl"/>
+          <img src="/images/Programmer.jpg" alt="illustration" className="relative z-10 w-82.5 h-82.5 ml-15 mt-27.75 rounded-xl"/>
           <div className="absolute size-40 rounded-full bg-[#44A194] bottom-0 right-0"></div>
         </div>
       </div>

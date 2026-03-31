@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore.js';
 import { useChatStore } from '../store/useChatStore.js';
-import { LogOutIcon, Volume2Icon, VolumeOffIcon } from "lucide-react";
+import { LoaderIcon, LogOutIcon, Volume2Icon, VolumeOffIcon } from "lucide-react";
 
 function ProfileHeader() {
   const { authUser, logout, updateProfile } = useAuthStore();
@@ -11,7 +11,19 @@ function ProfileHeader() {
 
   const fileInputRef = useRef(null);
 
-  const handleImageUpload = (e) => {}
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if(!file) return
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = async () => {
+      const base64img = reader.result;
+      setImg(base64img);
+      await updateProfile({ profilePic: base64img });
+    }
+  }
 
 
   return (
@@ -19,7 +31,10 @@ function ProfileHeader() {
       <div className='flex items-center justify-center'>
         <div className='flex items-center gap-3'>
           <div className='avatar online'>
-            <button className='size-14 rounded-full overflow-hidden relative group' onClick={() => fileInputRef.current.click()}>
+            <button 
+              className='size-14 rounded-full overflow-hidden relative group' 
+              onClick={() => fileInputRef.current.click()}
+            >
               <img 
                 src={img || authUser.profilePic || "/images/avatar.png"} 
                 alt="User Image"
@@ -39,7 +54,7 @@ function ProfileHeader() {
           </div>
           <div>
             <h3 className='text-slate-200 text-base font-medium max-w-45 truncate'>
-              {authUser.data.fullname}
+              {authUser.fullname}
             </h3>
             <p className='text-slate-400 text-xs'>Online</p>
           </div>
@@ -53,11 +68,7 @@ function ProfileHeader() {
           </button>
           <button
             className='text-slate-400 hover:text-slate-200 transition-colors'
-            // onClick={
-            // mouseClickSound.current = 0,
-            // mouseClickSound.play().catch((err) => console.log("Audio played failed: ", err)),
-            // toggleSound()
-            // }
+            onClick={toggleSound}
           >
             {
               isSoundEnable ? (
