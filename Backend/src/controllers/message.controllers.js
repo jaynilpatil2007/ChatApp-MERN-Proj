@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
 import { Message } from "../models/message.models.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js"
+import { getRecieverSocketId, io } from "../utils/sockets.js";
 
 const getAllContacts = asyncHandler(async (req, res) => {
     const loggedInUser = req.user._id;
@@ -88,6 +89,11 @@ const sendMessage = asyncHandler(async (req, res) => {
         text,
         image: imageUrl
     })
+
+    const receiverSocketId = getRecieverSocketId(recieverId);
+    if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newMessage", message);
+    }
 
     return res
         .status(201)

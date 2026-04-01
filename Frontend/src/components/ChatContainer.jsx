@@ -6,14 +6,17 @@ import MessageInput from './MessageInput.jsx';
 import NoChatHistoryPlaceholder from "./NoChatHistoryPlaceholder.jsx"
 
 function ChatContainer() {
-  const {message, getMessageByUserId, selectedUser} = useChatStore();
+  const {message, getMessageByUserId, selectedUser, subcribeToMessage, unSubscribeToMessage} = useChatStore();
   const {authUser} = useAuthStore();
 
   const messageEndRef = useRef();
 
   useEffect(() => {
-    getMessageByUserId(selectedUser._id)
-  }, [selectedUser, getMessageByUserId]);
+    getMessageByUserId(selectedUser._id);
+    subcribeToMessage();
+
+    return () => unSubscribeToMessage();
+  }, [selectedUser, getMessageByUserId, subcribeToMessage, unSubscribeToMessage]);
 
   useEffect(() => {
     if(messageEndRef.current) {
