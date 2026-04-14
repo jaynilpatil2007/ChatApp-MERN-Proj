@@ -18,7 +18,7 @@ function ContactList() {
       {allContacts.map((contact) => (
         <div
             key={contact._id}
-            className='bg-cyan-500/10 p-4 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors'
+            className='bg-olive-700/10 p-4 rounded-lg cursor-pointer hover:bg-olive-700/20 transition-colors'
             onClick={() => setSelectedUser(contact)}
           >
             <div className='flex items-center gap-3'>
@@ -30,7 +30,7 @@ function ContactList() {
                   />
                 </div>
               </div>
-              <h4 className='text-slate-200 font-medium truncate'>{contact.fullname}</h4>
+              <h4 className='text-neutral-700/90 font-medium truncate'>{contact.fullname}</h4>
             </div>
           </div>
       ))}

@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react'
 import { useAuthStore } from '../store/useAuthStore.js';
-import { useChatStore } from '../store/useChatStore.js';
-import { LoaderIcon, LogOutIcon, Volume2Icon, VolumeOffIcon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 
 function ProfileHeader() {
   const { authUser, logout, updateProfile } = useAuthStore();
-  const { toggleSound, isSoundEnable} = useChatStore();
 
   const [ img , setImg ] = useState(null);
 
@@ -28,7 +26,7 @@ function ProfileHeader() {
 
   return (
     <div className='p-6 border-b border-slate-700/50'>
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center gap-25'>
         <div className='flex items-center gap-3'>
           <div className='avatar avatar-online'>
             <button 
@@ -36,7 +34,7 @@ function ProfileHeader() {
               onClick={() => fileInputRef.current.click()}
             >
               <img 
-                src={img || authUser.profilePic || "/images/avatar.png"} 
+                src={img || authUser.data.profilePic || "/images/avatar.png"} 
                 alt="User Image"
                 className='size-full object-cover'
               />
@@ -53,10 +51,10 @@ function ProfileHeader() {
             />
           </div>
           <div>
-            <h3 className='text-slate-200 text-base font-medium max-w-45 truncate'>
-              {authUser.fullname}
+            <h3 className='text-olive-700 text-base font-medium max-w-45 truncate'>
+              {authUser.data.fullname}
             </h3>
-            <p className='text-slate-400 text-xs'>Online</p>
+            <p className='text-olive-700 text-xs'>Online</p>
           </div>
         </div>
         <div className='flex items-center gap-4'>
@@ -65,18 +63,6 @@ function ProfileHeader() {
             onClick={logout}
           >
             <LogOutIcon className="size-5"/>
-          </button>
-          <button
-            className='text-slate-400 hover:text-slate-200 transition-colors'
-            onClick={toggleSound}
-          >
-            {
-              isSoundEnable ? (
-                <Volume2Icon className='size-5'/>
-              ) : (
-                <VolumeOffIcon className='size-5'/>
-              )
-            }
           </button>
         </div>
       </div>

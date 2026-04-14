@@ -12,8 +12,8 @@ function ChatContainer() {
   const messageEndRef = useRef();
 
   useEffect(() => {
-    getMessageByUserId(selectedUser._id);
     subcribeToMessage();
+    getMessageByUserId(selectedUser._id);
 
     return () => unSubscribeToMessage();
   }, [selectedUser, getMessageByUserId, subcribeToMessage, unSubscribeToMessage]);
@@ -34,7 +34,7 @@ function ChatContainer() {
               {
                 message.map((msg) => {
                   // Ensure both IDs are strings for robust comparison
-                  const isSentByCurrentUser = msg.senderId?.toString() === authUser._id?.toString();
+                  const isSentByCurrentUser = msg.senderId?.toString() === authUser.data._id?.toString();
                   return (
                     <div 
                       key={msg._id}

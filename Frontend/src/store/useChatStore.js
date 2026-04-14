@@ -65,7 +65,7 @@ export const useChatStore = create((set, get) => ({
 
         const optimisticMessage = {
             _id: tempId,
-            senderId: authUser._id,
+            senderId: authUser.data._id,
             recieverId: selectedUser._id,
             text: messageData.text,
             image: messageData.image,
@@ -91,11 +91,11 @@ export const useChatStore = create((set, get) => ({
         const socket = useAuthStore.getState().socket;
 
         socket.on("newMessage", (message) => {
-            const isMessageSentFromSelectedUser = message.senderId === selectedUser._id;
+            const isMessageSentFromSelectedUser = message.senderId === selectedUser?._id || message.recieverId === selectedUser?._id;
             if (!isMessageSentFromSelectedUser) return;
 
 
-            const CurrentMessage = get().message;
+            const CurrentMessage = Array.isArray(get().message) ? get().message : [];
             set({ message: [...CurrentMessage, message] })
         })
     },

@@ -3,7 +3,7 @@ import { axiosInstance } from "../lib/axios.js"
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-const BASE_URL = "https://syncspace-c05l.onrender.com";
+const BASE_URL = "http://localhost:8080";
 
 export const useAuthStore = create((set, get) => ({
     authUser: null,
@@ -17,7 +17,7 @@ export const useAuthStore = create((set, get) => ({
     check: async () => {
         try {
             const res = await axiosInstance.get("/auth/check");
-            set({ authUser: res.data });
+            set({ authUser: res.data.data });
             get().socketConnect();
         } catch (error) {
             console.log("Error in auth: ", error);
@@ -31,7 +31,7 @@ export const useAuthStore = create((set, get) => ({
         set({ isSigningCheck: true })
         try {
             const res = await axiosInstance.post("/auth/signup", data);
-            set({ authUser: res.data });
+            set({ authUser: res.data.data });
 
             toast.success("Account created successfully");
 
@@ -46,7 +46,7 @@ export const useAuthStore = create((set, get) => ({
     login: async (data) => {
         set({ isLoggedInCheck: true })
         try {
-            const res = await axiosInstance.post("/auth/login", data, { withCredentials: true });
+            const res = await axiosInstance.post("/auth/login", data);
             set({ authUser: res.data });
 
             toast.success("Login successfully");

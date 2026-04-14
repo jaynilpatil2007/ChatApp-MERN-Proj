@@ -6,7 +6,7 @@ import { useAuthStore } from '../store/useAuthStore.js';
 function ChatHeader() {
     const { selectedUser, setSelectedUser } = useChatStore();
     const { onlineUsers } = useAuthStore();
-    const isOnline = onlineUsers.includes(selectedUser._id);
+    const isOnline = selectedUser && onlineUsers.includes(selectedUser._id);
 
     useEffect(() => {
 
@@ -16,8 +16,10 @@ function ChatHeader() {
 
         window.addEventListener("keydown", handleEscKey);
 
-        return () => window.addEventListener("keydown", handleEscKey);
+        return () => window.removeEventListener("keydown", handleEscKey);
     }, [setSelectedUser])
+
+    console.log(selectedUser);
 
   return (
     <div className='flex justify-between items-center bg-slate-800/50 border-b border-slate-700/50 max-h-21 px-6 flex-1'>
